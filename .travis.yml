@@ -1,10 +1,15 @@
 language: ruby
-
 rvm:
- - 2.0.0
-
+- 2.0.0
 script:
- - bundle exec rake db:migrate --trace
- - RAILS_ENV=test bundle exec rake db:migrate --trace
- - bundle exec rake db:test:prepare
- - bundle exec rspec -fd spec/
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: gahao9WcVuAu6dE58k8B6epZZQhLhAPnVUq1JO4HvcWF8uoQHFsAJMxLZEc2XU9JLPgdN6oyg+P95xgoU7m4SOym3kTvTlfmtjNACDBaLD/+bid+5263hu8cRJfGwTCZFCsSmpVhn3r8rS7Vr+cyDpWAiOGFa3pCDhMbuWVj4ew=
+  app: ShortTermMemoryTest
+  on:
+    repo: TTL-tests/ShortTermMemoryTest
