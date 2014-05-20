@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  skip_before_filter  :verify_authenticity_token
   # GET /users
   # GET /users.json
   def index
@@ -19,6 +19,13 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+  end
+
+  # POST /login
+  def login
+    @users = User.all
+    user = @users.find_by username:params[:username]
+    render json: !user.nil?
   end
 
   # POST /users
@@ -74,8 +81,9 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:username, :sex, :yearOfBirth, :handedness, :education)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:username, :sex, :yearOfBirth, :handedness, :education)
+  end
+
 end
