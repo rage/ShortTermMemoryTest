@@ -13,17 +13,17 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show
-  end
+  #def show
+  #end
 
   # GET /users/new
-  def new
-    @user = User.new
-  end
+  #def new
+  #  @user = User.new
+  #end
 
   # GET /users/1/edit
-  def edit
-  end
+  # def edit
+  # end
 
   # POST /login
   def login
