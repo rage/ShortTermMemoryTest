@@ -38,21 +38,13 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if !(@user.sex == "f" or @user.sex == "m")
-      raise
+      render json: FALSE
     end
     if !(@user.handedness == "l" or @user.handedness == "r")
-      raise
+      render json: FALSE
     end
 
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
+    render json: @user.save
   end
 
   # PATCH/PUT /users/1
@@ -87,7 +79,7 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:username, :sex, :yearOfBirth, :handedness, :education)
+    params.permit(:username, :sex, :yearOfBirth, :handedness, :education)
   end
   def cors_set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'

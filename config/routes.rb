@@ -1,7 +1,8 @@
 ShortTermMemoryTest::Application.routes.draw do
   resources :users
-  get 'signup', to: 'users#new'
+  # get 'signup', to: 'users#new'
   post 'login', to: 'users#login'
+  post 'signup', to: 'users#create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
