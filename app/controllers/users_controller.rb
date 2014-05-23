@@ -38,10 +38,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if !(@user.sex == "f" or @user.sex == "m")
-      render json: FALSE
+      return render json: FALSE
     end
     if !(@user.handedness == "l" or @user.handedness == "r")
-      render json: FALSE
+      return render json: FALSE
     end
 
     render json: @user.save
