@@ -27,9 +27,11 @@ class ListsController < ApplicationController
 
     require 'csv'
 
-    @list = List.new(list_params)
-    @list.save()
     myfile = params[:file]
+    @list = List.new(list_params)
+    byebug
+    @list.filename = myfile.original_filename
+    @list.save()
 
 
     cvsArray = CSV.read(myfile.path)
