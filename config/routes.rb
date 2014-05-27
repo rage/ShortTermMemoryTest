@@ -1,4 +1,10 @@
 ShortTermMemoryTest::Application.routes.draw do
+  resources :numbers
+
+  resources :numbersets
+
+  resources :lists
+
   resources :users
 
   post 'login', to: 'users#login'

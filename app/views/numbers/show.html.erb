@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Numberset:</strong>
+  <%= @number.numberset_id %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @number.position %>
+</p>
+
+<p>
+  <strong>Text:</strong>
+  <%= @number.text %>
+</p>
+
+<%= link_to 'Edit', edit_number_path(@number) %> |
+<%= link_to 'Back', numbers_path %>

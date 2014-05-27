@@ -11,7 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140520082330) do
+ActiveRecord::Schema.define(version: 20140527071248) do
+
+  create_table "lists", force: true do |t|
+    t.string   "filename"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "numbers", force: true do |t|
+    t.integer  "numberset_id"
+    t.integer  "position"
+    t.integer  "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "numbersets", force: true do |t|
+    t.integer  "position"
+    t.integer  "list_id"
+    t.integer  "length"
+    t.string   "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "username"
