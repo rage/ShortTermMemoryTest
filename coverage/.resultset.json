@@ -1,0 +1,36 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/home/ad/fshome1/u1/a/artokaik/Linux/Projects/STMTBack/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ad/fshome1/u1/a/artokaik/Linux/Projects/STMTBack/app/helpers/lists_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ad/fshome1/u1/a/artokaik/Linux/Projects/STMTBack/app/helpers/numbers_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ad/fshome1/u1/a/artokaik/Linux/Projects/STMTBack/app/helpers/numbersets_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ad/fshome1/u1/a/artokaik/Linux/Projects/STMTBack/app/helpers/users_helper.rb": [
+        1,
+        null
+      ],
+      "/home/ad/fshome1/u1/a/artokaik/Linux/Projects/STMTBack/app/models/user.rb": [
+        1,
+        1,
+        0,
+        null,
+        null,
+        1,
+        null
+      ]
+    },
+    "timestamp": 1401185602
+  }
+}
