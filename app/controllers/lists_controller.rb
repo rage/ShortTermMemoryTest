@@ -27,14 +27,14 @@ class ListsController < ApplicationController
 
     require 'csv'
 
-    myfile = params[:file]
+    csvfile = params[:file]
     @list = List.new(list_params)
-    byebug
-    @list.filename = myfile.original_filename
+
+    @list.filename = csvfile.original_filename
     @list.save()
 
 
-    cvsArray = CSV.read(myfile.path)
+    cvsArray = CSV.read(csvfile.path)
 
     last = -1
     position = 0
