@@ -22,8 +22,8 @@ class ListsController < ApplicationController
   end
 
   # GET /lists/1/edit
-  def edit
-  end
+  #def edit
+  #end
 
   # POST /lists
   # POST /lists.json
@@ -72,17 +72,17 @@ class ListsController < ApplicationController
 
   # PATCH/PUT /lists/1
   # PATCH/PUT /lists/1.json
-  def update
-    respond_to do |format|
-      if @list.update(list_params)
-        format.html { redirect_to @list, notice: 'List was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @list.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #def update
+  #  respond_to do |format|
+  #    if @list.update(list_params)
+  #      format.html { redirect_to @list, notice: 'List was successfully updated.' }
+  #      format.json { head :no_content }
+  #    else
+  #      format.html { render action: 'edit' }
+  #      format.json { render json: @list.errors, status: :unprocessable_entity }
+  #    end
+  #  end
+  #end
 
   # DELETE /lists/1
   # DELETE /lists/1.json
