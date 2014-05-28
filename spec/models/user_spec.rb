@@ -15,7 +15,7 @@ describe User do
     user = User.new yearOfBirth:2000
 
     user.yearOfBirth.should == 2000
-  end
+  end 
   it "has the yearOfBirth set correctly" do
     user = User.new yearOfBirth:1900
 
