@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @testcase.user_id %>
+</p>
+
+<p>
+  <strong>List:</strong>
+  <%= @testcase.list_id %>
+</p>
+
+<p>
+  <strong>Training:</strong>
+  <%= @testcase.training %>
+</p>
+
+<p>
+  <strong>Finished:</strong>
+  <%= @testcase.finished %>
+</p>
+
+<%= link_to 'Edit', edit_testcase_path(@testcase) %> |
+<%= link_to 'Back', testcases_path %>

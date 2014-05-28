@@ -1,0 +1,33 @@
+<%= form_for(@testlog) do |f| %>
+  <% if @testlog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@testlog.errors.count, "error") %> prohibited this testlog from being saved:</h2>
+
+      <ul>
+      <% @testlog.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :testcase_id %><br>
+    <%= f.number_field :testcase_id %>
+  </div>
+  <div class="field">
+    <%= f.label :eventtype %><br>
+    <%= f.text_field :eventtype %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br>
+    <%= f.text_field :value %>
+  </div>
+  <div class="field">
+    <%= f.label :timestamp %><br>
+    <%= f.number_field :timestamp %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

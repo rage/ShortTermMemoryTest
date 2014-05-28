@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140528105313) do
+ActiveRecord::Schema.define(version: 20140528113631) do
 
   create_table "lists", force: true do |t|
     t.string   "filename"
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(version: 20140528105313) do
     t.integer  "list_id"
     t.integer  "length"
     t.string   "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "testcases", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "list_id"
+    t.boolean  "training"
+    t.boolean  "finished"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "testlogs", force: true do |t|
+    t.integer  "testcase_id"
+    t.string   "eventtype"
+    t.string   "value"
+    t.integer  "timestamp"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Testcase:</strong>
+  <%= @testlog.testcase_id %>
+</p>
+
+<p>
+  <strong>Eventtype:</strong>
+  <%= @testlog.eventtype %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @testlog.value %>
+</p>
+
+<p>
+  <strong>Timestamp:</strong>
+  <%= @testlog.timestamp %>
+</p>
+
+<%= link_to 'Edit', edit_testlog_path(@testlog) %> |
+<%= link_to 'Back', testlogs_path %>
