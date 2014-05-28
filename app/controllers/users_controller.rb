@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if !(@user.sex == "f" or @user.sex == "m" or @user.sex == "o")
+    if !(@user.sex == "f" or @user.sex == "m")
       return render json: FALSE
     end
     if !(@user.handedness == "l" or @user.handedness == "r")
