@@ -3,4 +3,7 @@ class User < ActiveRecord::Base
                                only_integer: true }
 
   validates :username, uniqueness: true
+
+  has_many :testcases
+  has_many :testlogs, :through => :testcases
 end
