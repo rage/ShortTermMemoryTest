@@ -18,6 +18,3 @@
 
 # Ignore rubymine
 .idea/
-
-# Ignore coverage
-/coverage
