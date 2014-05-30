@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Filename</th>
+      <th>Training</th>
       <th></th>
       <th></th>
     </tr>
@@ -13,6 +14,7 @@
     <% @lists.each do |list| %>
       <tr>
         <td><%= list.filename %></td>
+        <td><%= list.training %></td>
         <td><%= link_to 'Show', list %></td>
         <td><%= link_to 'Destroy', list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

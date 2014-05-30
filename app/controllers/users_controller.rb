@@ -27,9 +27,22 @@ class UsersController < ApplicationController
 
   # POST /login
   def login
+    # @users = User.all
+    # user = @users.find_by username:params[:username]
+    # render json: !user.nil?
     @users = User.all
     user = @users.find_by username:params[:username]
-    render json: !user.nil?
+    if !user.nil?
+      @testcases = Testcase.where user_id:user.id, finished:true, training:true
+      if(@testcases.length>0)
+        render json: "{\"isReserved\":true, \"isTrained\": true}"
+      else
+        render json: "{\"isReserved\":true, \"isTrained\": false}"
+      end
+    else
+      render json: "{\"isReserved\":false, \"isTrained\": false}"
+    end
+
   end
 
   # POST /users

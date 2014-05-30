@@ -34,9 +34,15 @@ class ListsController < ApplicationController
 
     csvfile = params[:file]
     @list = List.new(list_params)
+    if(params[:training])
+      @list.training=true
+    else
+      @list.training = false
+    end
 
     @list.active = true
-    @list.training = false
+
+
 
     @list.filename = csvfile.original_filename
     @list.save()

@@ -15,6 +15,10 @@
     Lista:<br>
     <%= file_field_tag :file %>
   </div>
+    <div class="field">
+  Harjoituslista:<br>
+  <%= check_box_tag :training %>
+</div>
   <div class="actions">
     <%= submit_tag( "Create list" ) %>
   </div><% end %>
