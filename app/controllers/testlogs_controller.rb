@@ -1,6 +1,9 @@
 class TestlogsController < ApplicationController
   before_action :set_testlog, only: [:show, :edit, :update, :destroy]
 
+  before_filter :cors_preflight_check
+  after_filter :cors_set_access_control_headers
+
   # GET /testlogs
   # GET /testlogs.json
   def index
