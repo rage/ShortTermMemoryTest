@@ -26,6 +26,41 @@ class ListsController < ApplicationController
   #def edit
   #end
 
+
+  #POST /nextList
+  def getNextList
+    user = User.find_by username:params[:username]
+    testcases = Testcase.where user_id:user.id
+
+    max = 0
+    for testcase in testcases do
+      if testcase.id>max
+        max=testcase.id
+      end
+    end
+    lastCase = Testcase.find max
+    max = lastCase.list_id
+    min = 99999999
+    retValue = 99999999
+    lists = List.where training: false, active: true
+    for list in lists do
+      if list.id<min
+        min = list.id
+      end
+      if max<list.id and retValue>list.id
+        retValue = list.id
+      end
+    end
+    if retValue == 99999999
+      retValue = min
+    end
+    list = List.find retValue
+    testcase = Testcase.new user_id:user.id, list_id:list.id, training: false
+    testcase.save
+    render json: list
+
+  end
+
   # POST /lists
   # POST /lists.json
   def create
