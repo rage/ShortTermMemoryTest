@@ -1,5 +1,6 @@
 class TestlogsController < ApplicationController
   before_action :set_testlog, only: [:show, :edit, :update, :destroy]
+  skip_before_filter  :verify_authenticity_token
 
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
@@ -27,17 +28,14 @@ class TestlogsController < ApplicationController
   # POST /testlogs
   # POST /testlogs.json
   def create
-    @testlog = Testlog.new(testlog_params)
 
-    respond_to do |format|
-      if @testlog.save
-        format.html { redirect_to @testlog, notice: 'Testlog was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @testlog }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @testlog.errors, status: :unprocessable_entity }
-      end
+    params[:testlog].each do |key,value|
+
+      puts key
+      @testlog = Testlog.new(value)
+      @testlog.save
     end
+    render json: @testlog
   end
 
   # PATCH/PUT /testlogs/1
