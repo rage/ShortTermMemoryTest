@@ -28,18 +28,19 @@ class ListsController < ApplicationController
 
 
   #POST /nextList
-  def getNextList
+  def getnextlist
     user = User.find_by username:params[:username]
     testcases = Testcase.where user_id:user.id
-
     max = 0
     for testcase in testcases do
       if testcase.id>max
         max=testcase.id
       end
     end
-    lastCase = Testcase.find max
-    max = lastCase.list_id
+    if max != 0
+      lastCase = Testcase.find max
+      max = lastCase.list_id
+    end
     min = 99999999
     retValue = 99999999
     lists = List.where training: false, active: true
@@ -55,10 +56,39 @@ class ListsController < ApplicationController
       retValue = min
     end
     list = List.find retValue
-    testcase = Testcase.new user_id:user.id, list_id:list.id, training: false
+    testcase = Testcase.new user_id:user.id, list_id:list.id, training: false, finished: false
     testcase.save
-    render json: list
 
+
+    render json: testcase.to_json(:only => :id,
+                                  :include=>{:list=>{ :only=> [:id, :training],
+                                                      :include => { :numbersets => {
+                                                          :only => [:position, :order],
+                                                          :include => { :numbers => {
+                                                              :only => [:position, :text]
+                                                          }}
+                                                      }}
+                                  }}
+    )
+  end
+
+
+  #POST /trainingList
+  def getTrainingList
+    user = User.find_by username:params[:username]
+    list = List.find_by training:true
+    testcase = Testcase.new user_id:user.id, list_id:list.id, training: true, finished: false
+    testcase.save
+    render json: testcase.to_json(:only => :id,
+                                  :include=>{:list=>{ :only=> [:id, :training],
+                                                      :include => { :numbersets => {
+                                                                                  :only => [:position, :order],
+                                                                                  :include => { :numbers => {
+                                                                                                          :only => [:position, :text]
+                                                                                  }}
+                                                      }}
+                                  }}
+    )
   end
 
   # POST /lists
