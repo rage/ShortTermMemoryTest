@@ -1,0 +1,10 @@
+SERIES_LENGHT,TEXT,POSITION,RETURN,LAST_SERIES,ORDER
+4,1,1,0,0,backwards
+4,2,2,0,0,backwards
+4,3,3,0,0,backwards
+4,4,4,1,0,backwards
+3,5,1,0,4,upwards
+3,6,2,0,4,upwards
+3,7,3,1,4,upwards
+2,8,1,0,3,upwards
+2,9,2,1,3,upwards

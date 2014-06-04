@@ -26,6 +26,30 @@ class ListsController < ApplicationController
   #def edit
   #end
 
+
+  #POST /nextList
+  def getnextlist
+    user = User.find_by username:params[:username]
+    userId = user.id
+    lastCase = lastCaseId(userId)
+    listId = nextList(lastCase).id
+    testcase = Testcase.create user_id:userId, list_id:listId, training: false, finished: false
+    testcaseToJson(testcase)
+  end
+
+
+
+
+  #POST /trainingList
+  def getTrainingList
+    user = User.find_by username:params[:username]
+    list = List.find_by training:true
+    testcase = Testcase.new user_id:user.id, list_id:list.id, training: true, finished: false
+    testcase.save
+    testcaseToJson(testcase)
+  end
+
+
   # POST /lists
   # POST /lists.json
   def create
@@ -114,4 +138,36 @@ class ListsController < ApplicationController
     def list_params
       params.permit(:filename)
     end
+
+    def testcaseToJson(testcase)
+      render json: testcase.to_json(:only => :id,
+                                    :include => {:list => {:only => [:id, :training],
+                                                           :include => {:numbersets => {
+                                                               :only => [:position, :order],
+                                                               :include => {:numbers => {
+                                                                   :only => [:position, :text]
+                                                               }}
+                                                           }}
+                                    }}
+      )
+    end
+
+    def lastCaseId(userId)
+      lastCase = Testcase.where(user_id: userId).last
+      if (lastCase.nil?)
+        max=0
+      else
+        max = lastCase.list_id
+      end
+      max
+    end
+
+    def nextList(lastListId)
+      listat = List.where("id > " + lastListId.to_s).where training: false, active: true
+      if listat.length == 0
+        listat = List.where training: false, active: true
+      end
+      list = listat.first
+    end
+
 end

@@ -13,6 +13,8 @@ ShortTermMemoryTest::Application.routes.draw do
 
   post 'login', to: 'users#login'
   post 'signup', to: 'users#create'
+  post 'nextList', to: 'lists#getnextlist'
+  post 'trainingList', to: 'lists#getTrainingList'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
