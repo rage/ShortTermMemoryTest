@@ -28,7 +28,6 @@ class TestlogsController < ApplicationController
   # POST /testlogs
   # POST /testlogs.json
   def create
-
     params[:testlog].each do |key,value|
 
       puts key
