@@ -45,4 +45,18 @@ FactoryGirl.define do
     active true
   end
 
+  factory :trainingNotFinished, class: Testcase do
+    user_id 1
+    list_id 1
+    training true
+    finished false
+  end
+
+  factory :trainingFinished, class: Testcase do
+    user_id 1
+    list_id 1
+    training true
+    finished true
+  end
+
 end
