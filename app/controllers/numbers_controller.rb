@@ -1,5 +1,10 @@
 class NumbersController < ApplicationController
   before_action :set_number, only: [:show, :edit, :update, :destroy]
+  skip_before_filter  :verify_authenticity_token
+
+  before_filter :cors_preflight_check
+  after_filter :cors_set_access_control_headers
+
 
   # GET /numbers
   # GET /numbers.json
