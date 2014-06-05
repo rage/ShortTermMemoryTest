@@ -32,7 +32,7 @@ class ListsController < ApplicationController
     user = User.find_by username:params[:username]
     userId = user.id
     previousListId = lastListId(userId)
-    listId = nextList(previousListId).id
+    listId = nextListId(previousListId)
     testcase = Testcase.create user_id:userId, list_id:listId, training: false, finished: false
     testcaseToJson(testcase)
   end
@@ -136,7 +136,7 @@ class ListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def list_params
-      params.permit(:filename)
+      params.permit(:filename, :training, :active)
     end
 
     def testcaseToJson(testcase)
@@ -162,12 +162,29 @@ class ListsController < ApplicationController
       max
     end
 
-    def nextList(lastListId)
-      listat = List.where("id > " + lastListId.to_s).where training: false, active: true
-      if listat.length == 0
-        listat = List.where training: false, active: true
+    def nextListId(lastListId)
+      # lists = List.where("id > " + lastListId.to_s).where training: false, active: true
+      # if lists.length == 0
+      #   lists = List.where training: false, active: true
+      # end
+      # list = lists.first
+      min = 9999999999
+      ret = 9999999999
+
+      lists = List.where training: false, active: true
+      for list in lists do
+        if list.id > lastListId and list.id < ret
+           ret = list.id
+        end
+        if list.id < min
+          min = list.id
+        end
       end
-      list = listat.first
+      if ret == 9999999999
+        ret = min
+      end
+
+      ret
     end
 
 end
