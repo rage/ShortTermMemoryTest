@@ -153,7 +153,8 @@ class ListsController < ApplicationController
     end
 
     def lastListId(userId)
-      lastCase = Testcase.where(user_id: userId).last
+      lastCases = Testcase.where(user_id: userId, training: false)
+      lastCase = lastCases.last
       if (lastCase.nil?)
         max=0
       else

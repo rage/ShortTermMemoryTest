@@ -43,7 +43,6 @@
 #     params = {
 #         username: user.username,
 #     }
-#     byebug
 #     visit nextList_path params
 #     visit nextList_path params
 #     visit nextList_path params
@@ -100,6 +99,33 @@
 #     expect(page).to have_content "{\"id\":3,\"list\":{\"id\":4"
 #     visit nextList_path params
 #     expect(page).to have_content "{\"id\":4,\"list\":{\"id\":1"
+#   end
+#
+#   it "GET traininglists returns training list" do
+#     list = FactoryGirl.create(:trainingList)
+#     list = FactoryGirl.create(:list3)
+#
+#     user = FactoryGirl.create(:user)
+#     params = {
+#         username: user.username,
+#     }
+#     visit trainingList_path params
+#     expect(page).to have_content "{\"id\":1,\"list\":{\"id\":3"
+#   end
+#
+#
+#   it "after training the first list is given" do
+#     list = FactoryGirl.create(:trainingList)
+#     list = FactoryGirl.create(:list3)
+#
+#     user = FactoryGirl.create(:user)
+#     params = {
+#         username: user.username,
+#     }
+#     visit trainingList_path params
+#     expect(page).to have_content "{\"id\":1,\"list\":{\"id\":3"
+#     visit nextList_path params
+#     expect(page).to have_content "{\"id\":2,\"list\":{\"id\":1"
 #   end
 #
 # end
