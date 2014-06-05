@@ -29,9 +29,8 @@ class TestlogsController < ApplicationController
   # POST /testlogs.json
   def create
     params[:testlog].each do |key,value|
-
       puts key
-      @testlog = Testlog.new(value)
+      @testlog = Testlog.find_or_create_by(value)
       @testlog.save
     end
     render json: @testlog
