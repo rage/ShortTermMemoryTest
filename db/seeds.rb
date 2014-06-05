@@ -1,3 +1,5 @@
+
+=begin
 List.create([
   {filename: "lista_esimerkkikorjattu.csv", training: false, active: true}
 ])
@@ -66,6 +68,7 @@ Numberset.create([
   {position: 11, list_id: 1, length: 4, order: "upwards"},
   {position: 12, list_id: 1, length: 2, order: "backwards"}
 ])
+=end
 User.create([
   {username: "Olen", sex: "f", yearOfBirth: 1999, handedness: "l", education: "Peruskoulu"}
 ])
