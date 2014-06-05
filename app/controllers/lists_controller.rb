@@ -31,8 +31,8 @@ class ListsController < ApplicationController
   def getnextlist
     user = User.find_by username:params[:username]
     userId = user.id
-    lastCase = lastCaseId(userId)
-    listId = nextList(lastCase).id
+    previousListId = lastListId(userId)
+    listId = nextList(previousListId).id
     testcase = Testcase.create user_id:userId, list_id:listId, training: false, finished: false
     testcaseToJson(testcase)
   end
@@ -152,7 +152,7 @@ class ListsController < ApplicationController
       )
     end
 
-    def lastCaseId(userId)
+    def lastListId(userId)
       lastCase = Testcase.where(user_id: userId).last
       if (lastCase.nil?)
         max=0
