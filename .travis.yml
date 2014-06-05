@@ -13,4 +13,6 @@ deploy:
   app: shorttermmemorytest
   on:
     repo: TTL-tests/ShortTermMemoryTest
-  run: "rake db:migrate"
+  run: 
+    - "rake db:migrate"
+    - "rake db:seed"
