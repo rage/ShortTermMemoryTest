@@ -31,7 +31,7 @@ describe UsersController do
       expect(response.body).to eq "{\"isReserved\":true, \"isTrained\": false}"
     end
 
-    it "If user is registered and training started but not finished, the response is correct" do
+    it "If user is registered and training done, the response is correct" do
       user = FactoryGirl.create(:user)
       training = FactoryGirl.create(:trainingFinished)
       params = {
@@ -46,11 +46,25 @@ describe UsersController do
 
   describe "create" do
 
-    it "If all the parameters are correct, user is created" do
+    it "If all the parameters are correct (left-handed female), user is created" do
       params = {
           username: "newName",
           sex: "f",
           handedness: "l",
+          yearOfBirth: 1901,
+          education: "yo",
+      }
+      post :create, params
+      expect(response.body).to eq "true"
+      post :login, params
+      expect(response.body).to eq "{\"isReserved\":true, \"isTrained\": false}"
+    end
+
+    it "If all the parameters are correct (right-handed male), user is created" do
+      params = {
+          username: "newName",
+          sex: "m",
+          handedness: "r",
           yearOfBirth: 1901,
           education: "yo",
       }

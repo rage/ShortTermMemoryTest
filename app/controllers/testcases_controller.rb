@@ -25,6 +25,19 @@ class TestcasesController < ApplicationController
   def edit
   end
 
+  #POST /testcases/finish
+  def finish
+    @testcase = Testcase.find_by id:(params[:id])
+    if @testcase.nil?
+      render json: false
+    else
+      @testcase.finished = true
+      @testcase.save
+      render json: @testcase.finished
+    end
+
+  end
+
   # POST /testcases
   # POST /testcases.json
   def create
