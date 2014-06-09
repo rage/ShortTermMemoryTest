@@ -22,22 +22,29 @@ class TestlogsController < ApplicationController
   end
 
   # GET /testlogs/1/edit
+=begin
   def edit
   end
+=end
 
   # POST /testlogs
   # POST /testlogs.json
   def create
-    params[:testlog].each do |key,value|
+    #byebug
+    params[:testlog].each do |key,entry|
       puts key
-      @testlog = Testlog.find_or_create_by(value)
+      @testlog = Testlog.find_or_create_by(entry)
       @testlog.save
+      if @testlog.errors.size != 0
+        return render json: {head: "error"}
+      end
     end
-    render json: @testlog
+    render json: {head: "ok"}
   end
 
   # PATCH/PUT /testlogs/1
   # PATCH/PUT /testlogs/1.json
+=begin
   def update
     respond_to do |format|
       if @testlog.update(testlog_params)
@@ -49,9 +56,11 @@ class TestlogsController < ApplicationController
       end
     end
   end
+=end
 
   # DELETE /testlogs/1
   # DELETE /testlogs/1.json
+=begin
   def destroy
     @testlog.destroy
     respond_to do |format|
@@ -59,6 +68,7 @@ class TestlogsController < ApplicationController
       format.json { head :no_content }
     end
   end
+=end
 
   private
     # Use callbacks to share common setup or constraints between actions.
