@@ -12,6 +12,9 @@ group :production do
    gem 'rails_12factor' 
 end
 
+#rails admin
+gem 'rails_admin', '~> 0.6.2'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
