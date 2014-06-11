@@ -33,15 +33,15 @@ class ResultsController < ApplicationController
   # POST /results.json
   def create
     #byebug
-    #params[:result].each do |key,entry|
-    #  puts key
-    #  byebug
-    #  @result = Result.find_or_create_by(entry)
-    #  @result.save
-    #  if @result.errors.size != 0
-    #    return render json: {head: "error"}
-    #  end
-    #end
+    params[:result].each do |key,entry|
+      puts key
+      #byebug
+      @result = Result.find_or_create_by(entry)
+      @result.save
+      if @result.errors.size != 0
+        return render json: {head: "error"}
+      end
+    end
     render json: {head: "ok"}
   end
 
