@@ -59,4 +59,18 @@ FactoryGirl.define do
     finished true
   end
 
+  factory :testcase do
+    user_id 1
+    list_id 1
+    training true
+    finished true
+  end
+
+  factory :testlog do
+    testcase_id 1
+    eventtype "test_event"
+    value "666"
+    timestamp 123454
+  end
+
 end
