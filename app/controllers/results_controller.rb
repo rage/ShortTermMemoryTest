@@ -45,10 +45,6 @@ class ResultsController < ApplicationController
     render json: {head: "ok"}
   end
 
-
-
-
-
   # PATCH/PUT /results/1
   # PATCH/PUT /results/1.json
 =begin
