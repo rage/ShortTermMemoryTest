@@ -1,4 +1,6 @@
 ShortTermMemoryTest::Application.routes.draw do
+  resources :results
+
   resources :testlogs
 
   resources :testcases
