@@ -1,5 +1,8 @@
 ShortTermMemoryTest::Application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  resources :results
+
   resources :testlogs
 
   resources :testcases
