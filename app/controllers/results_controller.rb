@@ -34,9 +34,7 @@ class ResultsController < ApplicationController
   def create
     #byebug
     params[:result].each do |key,entry|
-      #puts "key #{key}"
-      #puts "entry #{entry}"
-
+      puts key
       @result = Result.find_or_create_by(entry)
       @result.save
       if @result.errors.size != 0
