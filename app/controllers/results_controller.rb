@@ -50,6 +50,7 @@ class ResultsController < ApplicationController
 
   # PATCH/PUT /results/1
   # PATCH/PUT /results/1.json
+=begin
   def update
     respond_to do |format|
       if @result.update(result_params)
@@ -71,6 +72,7 @@ class ResultsController < ApplicationController
       format.json { head :no_content }
     end
   end
+=end
 
   private
     # Use callbacks to share common setup or constraints between actions.
