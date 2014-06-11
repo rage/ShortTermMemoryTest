@@ -1,7 +1,9 @@
+#require 'i18n'
+#I18n.default_locale = :fi
 RailsAdmin.config do |config|
 
   config.authorize_with do
-    authenticate_or_request_with_http_basic('Site Message') do |username, password|
+    authenticate_or_request_with_http_basic do |username, password|
       username == 'foo' && password == 'bar'
     end
   end
