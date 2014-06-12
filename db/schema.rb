@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140610104124) do
+ActiveRecord::Schema.define(version: 20140612101207) do
 
   create_table "lists", force: true do |t|
     t.string   "filename"
@@ -47,8 +47,6 @@ ActiveRecord::Schema.define(version: 20140610104124) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "results", ["testcase_id"], name: "index_results_on_testcase_id"
 
   create_table "testcases", force: true do |t|
     t.integer  "user_id"
