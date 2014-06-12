@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20140612101207) do
   end
 
   create_table "results", force: true do |t|
-    t.integer  "testcase_id"
     t.string   "keypressed"
     t.integer  "keypressindex"
     t.integer  "last_series"

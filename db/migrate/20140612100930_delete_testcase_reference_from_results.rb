@@ -1,5 +1,7 @@
 class DeleteTestcaseReferenceFromResults < ActiveRecord::Migration
   def change
-    remove_column :results, :testcase, :references
+    remove_reference :results, :testcase, index: true
   end
 end
+
+
