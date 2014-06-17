@@ -3,8 +3,8 @@ require 'spec_helper'
 describe ListsController do
 
     before :each do
-      list = FactoryGirl.create(:list)
-      list = FactoryGirl.create(:list2)
+      list1 = FactoryGirl.create(:list)
+      list2 = FactoryGirl.create(:list2)
     end
 
   it "First time user gets the first list" do
@@ -117,4 +117,29 @@ describe ListsController do
     post :getnextlist, params
     expect(response.body).to include "{\"id\":2,\"list\":{\"id\":1"
   end
+
+    it "response OK when list is successfully deactivated" do
+      params = {
+          :active=> 0
+      }
+      put :update, :id=> 1, :list => params
+      correct_path = lists_path + "/1"
+      response.should redirect_to correct_path
+    end
+
+
+    it "deactivated list is skipped" do
+      user = FactoryGirl.create(:user)
+      params = {
+          :active=> 0
+      }
+      put :update, :id=> 1, :list => params
+      params = {
+          username: user.username,
+      }
+      post :getnextlist, params
+      expect(response.body).to include "{\"id\":1,\"list\":{\"id\":2"
+    end
+
+
 end

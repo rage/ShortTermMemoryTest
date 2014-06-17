@@ -106,17 +106,18 @@ class ListsController < ApplicationController
 
   # PATCH/PUT /lists/1
   # PATCH/PUT /lists/1.json
-  #def update
-  #  respond_to do |format|
-  #    if @list.update(list_params)
-  #      format.html { redirect_to @list, notice: 'List was successfully updated.' }
-  #      format.json { head :no_content }
-  #    else
-  #      format.html { render action: 'edit' }
-  #      format.json { render json: @list.errors, status: :unprocessable_entity }
-  #    end
-  #  end
-  #end
+  def update
+    respond_to do |format|
+
+       if @list.update(list_params_update)
+         format.html { redirect_to @list, notice: 'List was successfully updated.' }
+         format.json { head :no_content }
+       else
+         format.html { render action: 'edit' }
+         format.json { render json: @list.errors, status: :unprocessable_entity }
+       end
+    end
+  end
 
   # DELETE /lists/1
   # DELETE /lists/1.json
@@ -137,6 +138,10 @@ class ListsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def list_params
       params.permit(:filename, :training, :active)
+    end
+
+    def list_params_update
+      params.require(:list).permit(:filename, :training, :active)
     end
 
     def testcaseToJson(testcase)
