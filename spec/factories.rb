@@ -73,4 +73,18 @@ FactoryGirl.define do
     timestamp 123454
   end
 
+  factory :result do
+    testcase_id 1
+    keypressed "3"
+    keypressindex 1
+    last_series 0
+    timestamp 123454
+  end
+
+  factory :admin do
+    email "hello@world.com"
+    password "Tsoha123"
+    password_confirmation "Tsoha123"
+  end
+
 end

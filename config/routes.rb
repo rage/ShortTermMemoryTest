@@ -1,4 +1,5 @@
 ShortTermMemoryTest::Application.routes.draw do
+  devise_for :admins
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   resources :results
@@ -20,6 +21,8 @@ ShortTermMemoryTest::Application.routes.draw do
   post 'nextList', to: 'lists#getnextlist'
   post 'trainingList', to: 'lists#getTrainingList'
   post 'finish', to: 'testcases#finish'
+
+  root :to => "rails_admin/main#dashboard"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

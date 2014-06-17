@@ -7,6 +7,7 @@ gem 'rails', '4.0.3'
 
 group :development, :test do
   gem 'sqlite3'
+  #gem 'mysql2'
 end
 
 group :production do
@@ -16,6 +17,9 @@ end
 
 #rails admin
 gem 'rails_admin', '~> 0.6.2'
+
+#devise authentication gem
+gem 'devise'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
