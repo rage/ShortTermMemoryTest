@@ -3,53 +3,41 @@ require 'spec_helper'
 describe ListsController do
 
     before :each do
-      list1 = FactoryGirl.create(:list)
-      list2 = FactoryGirl.create(:list2)
+      @list1 = FactoryGirl.create(:list)
+      @list2 = FactoryGirl.create(:list2)
+      @user = FactoryGirl.create(:user)
+      @params = {
+          username: @user.username,
+          testpath: "http://testitesti.com"
+      }
     end
 
   it "First time user gets the first list" do
-    user = FactoryGirl.create(:user)
-    params = {
-        username: user.username,
-    }
-    post :getnextlist, params
+    post :getnextlist, @params
     expect(response.body).to include "{\"id\":1,\"list\":{\"id\":1"
   end
 
   it "Second time user gets the second list" do
-
-    user = FactoryGirl.create(:user)
-    params = {
-        username: user.username,
-    }
-    post :getnextlist, params
-    post :getnextlist, params
+    post :getnextlist, @params
+    post :getnextlist, @params
     expect(response.body).to include  "{\"id\":2,\"list\":{\"id\":2"
   end
 
   it "Third time user gets the first list if two lists saved" do
-
-    user = FactoryGirl.create(:user)
-    params = {
-        username: user.username,
-    }
-    post :getnextlist, params
-    post :getnextlist, params
-    post :getnextlist, params
+    post :getnextlist, @params
+    post :getnextlist, @params
+    post :getnextlist, @params
     expect(response.body).to include  "{\"id\":3,\"list\":{\"id\":1"
   end
 
   it "Two users get the same list first" do
 
-    user1 = FactoryGirl.create(:user)
-    params1 = {
-        username: user1.username,
-    }
     user2 = FactoryGirl.create(:user2)
     params2 = {
         username: user2.username,
+        testpath: "http://testitesti.com"
     }
-    post :getnextlist, params1
+    post :getnextlist, @params
     expect(response.body).to include  "{\"id\":1,\"list\":{\"id\":1"
     post :getnextlist, params2
     expect(response.body).to include  "{\"id\":2,\"list\":{\"id\":1"
@@ -59,17 +47,13 @@ describe ListsController do
     list = FactoryGirl.create(:trainingList)
     list = FactoryGirl.create(:list3)
 
-    user = FactoryGirl.create(:user)
-    params = {
-        username: user.username,
-    }
-    post :getnextlist, params
+    post :getnextlist, @params
     expect(response.body).to include  "{\"id\":1,\"list\":{\"id\":1"
-    post :getnextlist, params
+    post :getnextlist, @params
     expect(response.body).to include  "{\"id\":2,\"list\":{\"id\":2"
-    post :getnextlist, params
+    post :getnextlist, @params
     expect(response.body).to include  "{\"id\":3,\"list\":{\"id\":4"
-    post :getnextlist, params
+    post :getnextlist, @params
     expect(response.body).to include  "{\"id\":4,\"list\":{\"id\":1"
   end
 
@@ -77,29 +61,21 @@ describe ListsController do
     list = FactoryGirl.create(:inactiveList)
     list = FactoryGirl.create(:list3)
 
-    user = FactoryGirl.create(:user)
-    params = {
-        username: user.username,
-    }
-    post :getnextlist, params
+    post :getnextlist, @params
     expect(response.body).to include  "{\"id\":1,\"list\":{\"id\":1"
-    post :getnextlist, params
+    post :getnextlist, @params
     expect(response.body).to include  "{\"id\":2,\"list\":{\"id\":2"
-    post :getnextlist, params
+    post :getnextlist, @params
     expect(response.body).to include  "{\"id\":3,\"list\":{\"id\":4"
-    post :getnextlist, params
+    post :getnextlist, @params
     expect(response.body).to include "{\"id\":4,\"list\":{\"id\":1"
   end
 
   it "GET traininglists returns training list" do
-    list = FactoryGirl.create(:trainingList)
-    list = FactoryGirl.create(:list3)
+    trainingList = FactoryGirl.create(:trainingList)
+    list3 = FactoryGirl.create(:list3)
 
-    user = FactoryGirl.create(:user)
-    params = {
-        username: user.username,
-    }
-    post :getTrainingList, params
+    post :getTrainingList, @params
     expect(response.body).to include  "{\"id\":1,\"list\":{\"id\":3"
   end
 
@@ -108,13 +84,9 @@ describe ListsController do
     list = FactoryGirl.create(:trainingList)
     list = FactoryGirl.create(:list3)
 
-    user = FactoryGirl.create(:user)
-    params = {
-        username: user.username,
-    }
-    post :getTrainingList, params
+    post :getTrainingList, @params
     expect(response.body).to include  "{\"id\":1,\"list\":{\"id\":3"
-    post :getnextlist, params
+    post :getnextlist, @params
     expect(response.body).to include "{\"id\":2,\"list\":{\"id\":1"
   end
 
@@ -129,17 +101,35 @@ describe ListsController do
 
 
     it "deactivated list is skipped" do
-      user = FactoryGirl.create(:user)
       params = {
           :active=> 0
       }
       put :update, :id=> 1, :list => params
-      params = {
-          username: user.username,
-      }
-      post :getnextlist, params
+      post :getnextlist, @params
       expect(response.body).to include "{\"id\":1,\"list\":{\"id\":2"
     end
 
+    it "getNextList creates a testcase correctly" do
+
+      post :getnextlist, @params
+      testcase = Testcase.first
+      expect(testcase.testpath).to eq("http://testitesti.com")
+      expect(testcase.user_id).to eq(@user.id)
+      expect(testcase.list_id).to eq(@list1.id)
+      expect(testcase.finished).to eq(false)
+      expect(testcase.training).to eq(false)
+    end
+
+    it "getTrainingList creates a testcase correctly" do
+      traininglist = FactoryGirl.create(:trainingList)
+
+      post :getTrainingList, @params
+      testcase = Testcase.first
+      expect(testcase.testpath).to eq("http://testitesti.com")
+      expect(testcase.user_id).to eq(@user.id)
+      expect(testcase.list_id).to eq(traininglist.id)
+      expect(testcase.finished).to eq(false)
+      expect(testcase.training).to eq(true)
+    end
 
 end

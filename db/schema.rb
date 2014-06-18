@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140616105418) do
+ActiveRecord::Schema.define(version: 20140618080640) do
 
   create_table "admins", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20140616105418) do
     t.boolean  "finished"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "testpath"
   end
 
   create_table "testlogs", force: true do |t|

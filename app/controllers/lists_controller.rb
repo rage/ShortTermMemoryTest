@@ -33,7 +33,7 @@ class ListsController < ApplicationController
     userId = user.id
     previousListId = lastListId(userId)
     listId = nextListId(previousListId)
-    testcase = Testcase.create user_id:userId, list_id:listId, training: false, finished: false
+    testcase = Testcase.create user_id:userId, list_id:listId, training: false, finished: false, testpath: params[:testpath]
     testcaseToJson(testcase)
   end
 
@@ -44,7 +44,7 @@ class ListsController < ApplicationController
   def getTrainingList
     user = User.find_by username:params[:username]
     list = List.find_by training:true
-    testcase = Testcase.new user_id:user.id, list_id:list.id, training: true, finished: false
+    testcase = Testcase.new user_id:user.id, list_id:list.id, training: true, finished: false, testpath: params[:testpath]
     testcase.save
     testcaseToJson(testcase)
   end

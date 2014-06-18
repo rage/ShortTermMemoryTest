@@ -50,6 +50,7 @@ FactoryGirl.define do
     list_id 1
     training true
     finished false
+    testpath "http://testitesti.com"
   end
 
   factory :trainingFinished, class: Testcase do
@@ -57,6 +58,7 @@ FactoryGirl.define do
     list_id 1
     training true
     finished true
+    testpath "http://testitesti.com"
   end
 
   factory :testcase do
@@ -64,6 +66,7 @@ FactoryGirl.define do
     list_id 1
     training true
     finished true
+    testpath "http://testitesti.com"
   end
 
   factory :testlog do
