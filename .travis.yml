@@ -13,6 +13,9 @@ deploy:
   app: shorttermmemorytest
   on:
     repo: TTL-tests/ShortTermMemoryTest
-  run: 
-    - "rake db:migrate"
-    - "rake db:seed"
+  run:
+  - rake db:migrate
+  - rake db:seed
+env:
+  global:
+    secure: ESNOKcuo8WrViEZ1jKg7pA0CWRI418Oi7BJODj0GVbhh0bVC3UNWLvcjZwnDA09+eVMpA8GttgEZzPGfgCou84vxRpwLsPfhP6y+vvNjzph0WmIK2krHLhZENgiWe8/RR6ecejGtI8vlMJCHEuoEKJCsUXxad/RV0fCxTztcF4A=
