@@ -2,6 +2,9 @@
 #I18n.default_locale = :fi
 RailsAdmin.config do |config|
 
+  require Rails.root.join('lib', 'rails_admin_add_list.rb')
+
+
   #ADMIN_EMAILS= ['marko.haanranta@helsinki.fi']
 =begin
   config.authorize_with do
@@ -47,6 +50,14 @@ RailsAdmin.config do |config|
     edit
     delete
     show_in_app
+
+    # Set the custom action here
+    add_list do
+      visible do
+        bindings[:abstract_model].model.to_s == "List"
+      end
+    end
+
 
     ## With an audit adapter, you can add:
     # history_index

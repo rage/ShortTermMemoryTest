@@ -22,7 +22,12 @@ ShortTermMemoryTest::Application.routes.draw do
   post 'trainingList', to: 'lists#getTrainingList'
   post 'finish', to: 'testcases#finish'
 
+  get 'lists/add_list', to: 'rails_admin/main#add_list'
+
   root :to => "rails_admin/main#dashboard"
+
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
