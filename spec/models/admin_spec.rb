@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Admin' do
 
-  it 'can be created' do
+  it 'account can be created' do
     admin = Admin.create! do |u|
       u.email = 'sample@sample.com'
       u.password = 'password'
@@ -11,6 +11,20 @@ describe 'Admin' do
 
     expect(admin.valid?).to be(true)
     expect(Admin.count).to eq(1)
+  end
+
+  it 'account can be deleted' do
+    admin = Admin.create! do |u|
+      u.email = 'sample@sample.com'
+      u.password = 'password'
+      u.password_confirmation = 'password'
+    end
+    expect(admin.valid?).to be(true)
+    expect(Admin.count).to eq(1)
+
+    Admin.destroy admin
+    expect(Admin.count).to eq(0)
+
   end
 
   it 'cant be created without password' do

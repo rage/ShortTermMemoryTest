@@ -26,7 +26,6 @@ class ListsController < ApplicationController
   #def edit
   #end
 
-
   #POST /nextList
   def getnextlist
     user = User.find_by username:params[:username]
@@ -37,9 +36,6 @@ class ListsController < ApplicationController
     testcaseToJson(testcase)
   end
 
-
-
-
   #POST /trainingList
   def getTrainingList
     user = User.find_by username:params[:username]
@@ -49,73 +45,33 @@ class ListsController < ApplicationController
     testcaseToJson(testcase)
   end
 
-
   # POST /lists
   # POST /lists.json
   def create
-
     require 'csv'
-
     csvfile = params[:file]
-    @list = List.new(list_params)
-    if(params[:training])
-      @list.training=true
-    else
-      @list.training = false
-    end
+    @list = List.new(training: false, active: true,filename: csvfile.original_filename)
+    if list_params[:training]==1 then @list.training=true end
 
-    @list.active = true
-
-
-
-    @list.filename = csvfile.original_filename
-    @list.save()
-
-
-    cvsArray = CSV.read(csvfile.path)
-
-    last = -1
-    position = 0
-
-    cvsArray.drop(1).each do |row|
-      if row[0] != last
-        position += 1
-        last = row[0]
-        @numberset = Numberset.new
-        @numberset.list = @list
-        @numberset.position = position
-        @numberset.length = row[0]
-        @numberset.order = row[5]
-        @numberset.save()
-      end
-      number = Number.new
-      number.numberset = @numberset
-      number.text = row[1]
-      number.position = row[2]
-      number.save
-
-    end
-
+    parseCSV(csvfile)
 
     respond_to do |format|
-       format.html { redirect_to @list, notice: 'List was successfully created.' }
-       format.json { render action: 'show', status: :created, location: @list }
+      format.html { redirect_to @list, notice: 'List was successfully created.' }
+      format.json { render action: 'show', status: :created, location: @list }
     end
-    #end
   end
 
   # PATCH/PUT /lists/1
   # PATCH/PUT /lists/1.json
   def update
     respond_to do |format|
-
-       if @list.update(list_params_update)
-         format.html { redirect_to @list, notice: 'List was successfully updated.' }
-         format.json { head :no_content }
-       else
-         format.html { render action: 'edit' }
-         format.json { render json: @list.errors, status: :unprocessable_entity }
-       end
+      if @list.update(list_params_update)
+        format.html { redirect_to @list, notice: 'List was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @list.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -130,67 +86,73 @@ class ListsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_list
-      @list = List.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_list
+    @list = List.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def list_params
-      params.permit(:filename, :training, :active)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def list_params
+    params.permit(:filename, :training, :active)
+  end
 
-    def list_params_update
-      params.require(:list).permit(:filename, :training, :active)
-    end
+  def list_params_update
+    params.require(:list).permit(:filename, :training, :active)
+  end
 
-    def testcaseToJson(testcase)
-      render json: testcase.to_json(:only => :id,
-                                    :include => {:list => {:only => [:id, :training],
-                                                           :include => {:numbersets => {
-                                                               :only => [:position, :order],
-                                                               :include => {:numbers => {
-                                                                   :only => [:position, :text]
-                                                               }}
-                                                           }}
-                                    }}
-      )
-    end
-
-    def lastListId(userId)
-      lastCases = Testcase.where(user_id: userId, training: false)
-      lastCase = lastCases.last
-      if (lastCase.nil?)
-        max=0
-      else
-        max = lastCase.list_id
+  def parseCSV(csvfile)
+    last = -1
+    position = 0
+    cvsArray = CSV.read(csvfile.path)
+    cvsArray.drop(1).each do |row|
+      unless row[0] == last
+        last = row[0]
+        position += 1
+        @numberset=Numberset.create list: @list, position: position, length: row[0], order: row[5]
       end
-      max
+      Number.create numberset: @numberset, text: row[1], position: row[2]
     end
+  end
 
-    def nextListId(lastListId)
-      # lists = List.where("id > " + lastListId.to_s).where training: false, active: true
-      # if lists.length == 0
-      #   lists = List.where training: false, active: true
-      # end
-      # list = lists.first
-      min = 9999999999
-      ret = 9999999999
+  def testcaseToJson(testcase)
+    render json: testcase.to_json(:only => :id,
+                                  :include => {:list => {:only => [:id, :training],
+                                                         :include => {:numbersets => {
+                                                             :only => [:position, :order],
+                                                             :include => {:numbers => {
+                                                                 :only => [:position, :text]
+                                                             }}
+                                                         }}
+                                  }}
+    )
+  end
 
-      lists = List.where training: false, active: true
-      for list in lists do
-        if list.id > lastListId and list.id < ret
-           ret = list.id
-        end
-        if list.id < min
-          min = list.id
-        end
-      end
-      if ret == 9999999999
-        ret = min
-      end
-
-      ret
+  def lastListId(userId)
+    lastCase = Testcase.where(user_id: userId, training: false).last
+    if (lastCase.nil?)
+      max=0
+    else
+      max = lastCase.list_id
     end
+    max
+  end
 
+  def nextListId(lastListId)
+    min = 9999999999
+    ret = 9999999999
+
+    lists = List.where training: false, active: true
+    for list in lists do
+      if list.id > lastListId and list.id < ret
+        ret = list.id
+      end
+      if list.id < min
+        min = list.id
+      end
+    end
+    if ret == 9999999999
+      ret = min
+    end
+    ret
+  end
 end
