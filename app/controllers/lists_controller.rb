@@ -26,7 +26,6 @@ class ListsController < ApplicationController
   #def edit
   #end
 
-
   #POST /nextList
   def getnextlist
     user = User.find_by username:params[:username]
@@ -37,9 +36,6 @@ class ListsController < ApplicationController
     testcaseToJson(testcase)
   end
 
-
-
-
   #POST /trainingList
   def getTrainingList
     user = User.find_by username:params[:username]
@@ -49,59 +45,34 @@ class ListsController < ApplicationController
     testcaseToJson(testcase)
   end
 
-
   # POST /lists
   # POST /lists.json
   def create
 
     require 'csv'
-
     csvfile = params[:file]
-    @list = List.new(list_params)
-    if(params[:training])
-      @list.training=true
-    else
-      @list.training = false
-    end
-
-    @list.active = true
-
-
-
-    @list.filename = csvfile.original_filename
-    @list.save()
-
-
-    cvsArray = CSV.read(csvfile.path)
+    @list = List.new(training: false, active: true,filename: csvfile.original_filename)
+    if list_params[:training]==1 then @list.training=true end
 
     last = -1
     position = 0
-
+    cvsArray = CSV.read(csvfile.path)
     cvsArray.drop(1).each do |row|
-      if row[0] != last
-        position += 1
+      unless row[0] == last
         last = row[0]
-        @numberset = Numberset.new
-        @numberset.list = @list
-        @numberset.position = position
-        @numberset.length = row[0]
-        @numberset.order = row[5]
+        position += 1
+        @numberset = Numberset.new list: @list, position: position, length: row[0], order: row[5]
         @numberset.save()
       end
-      number = Number.new
-      number.numberset = @numberset
-      number.text = row[1]
-      number.position = row[2]
+      number=Number.new numberset: @numberset, text: row[1], position: row[2]
       number.save
-
     end
-
 
     respond_to do |format|
        format.html { redirect_to @list, notice: 'List was successfully created.' }
        format.json { render action: 'show', status: :created, location: @list }
     end
-    #end
+
   end
 
   # PATCH/PUT /lists/1
