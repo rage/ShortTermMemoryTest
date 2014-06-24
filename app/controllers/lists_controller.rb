@@ -51,7 +51,7 @@ class ListsController < ApplicationController
     require 'csv'
     csvfile = params[:file]
     @list = List.new(training: false, active: true,filename: csvfile.original_filename)
-    if list_params[:training]==1 then @list.training=true end
+    if list_params[:training] then @list.training=true end
 
     parseCSV(csvfile)
 

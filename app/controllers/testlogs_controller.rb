@@ -4,12 +4,14 @@ class TestlogsController < ApplicationController
 
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
+=begin
 
   # GET /testlogs
   # GET /testlogs.json
   def index
     @testlogs = Testlog.all
   end
+
 
   # GET /testlogs/1
   # GET /testlogs/1.json
@@ -20,6 +22,7 @@ class TestlogsController < ApplicationController
   def new
     @testlog = Testlog.new
   end
+=end
 
   # GET /testlogs/1/edit
 =begin
