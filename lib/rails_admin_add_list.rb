@@ -27,9 +27,9 @@ module RailsAdmin
         end
 
 
-        #register_instance_option :link_icon do
-        #  'icon-upload'
-        #end
+        register_instance_option :link_icon do
+          'icon-download'
+        end
 
         #register_instance_option :visible? do
         #  bindings[:abstract_model].to_s == "Renewal"

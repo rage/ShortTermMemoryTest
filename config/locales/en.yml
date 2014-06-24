@@ -21,3 +21,7 @@
 
 en:
   hello: "Hello world"
+  admin:
+    actions:
+      add_list:
+        menu: "Import"
