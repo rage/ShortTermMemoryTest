@@ -3,6 +3,7 @@ require 'spec_helper'
 describe ListsController do
 
     before :each do
+      @admin = FactoryGirl.create(:admin)
       @list1 = FactoryGirl.create(:list)
       @list2 = FactoryGirl.create(:list2)
       @user = FactoryGirl.create(:user)
@@ -94,6 +95,7 @@ describe ListsController do
       params = {
           :active=> 0
       }
+      sign_in :admin, @admin
       put :update, :id=> 1, :list => params
       correct_path = lists_path + "/1"
       response.should redirect_to correct_path
@@ -104,6 +106,7 @@ describe ListsController do
       params = {
           :active=> 0
       }
+      sign_in :admin, @admin
       put :update, :id=> 1, :list => params
       post :getnextlist, @params
       expect(response.body).to include "{\"id\":1,\"list\":{\"id\":2"

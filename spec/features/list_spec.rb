@@ -5,6 +5,12 @@ describe "Lists" do
 
   before :each do
 
+    FactoryGirl.create(:admin)
+    visit rails_admin_path
+    fill_in('admin_email',with:'hello@world.com')
+    fill_in('admin_password',with:'Tsoha123')
+    click_button('Sign in')
+
     visit new_list_path
     attach_file "file", "spec/fixtures/lista_esimerkkikorjattu.csv"
     click_button "Create list"

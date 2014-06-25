@@ -5,5 +5,10 @@
   <%= @list.filename %>
 </p>
 
+
 <%= link_to 'Edit', edit_list_path(@list) %> |
-<%= link_to 'Back', lists_path %>
+<%= link_to 'Back', lists_path %> |
+<%= link_to 'Short Term Memory Test Admin', rails_admin_path %> |
+<% if admin_signed_in? %>
+    <%= link_to('Logout', destroy_admin_session_path, :method => :delete) %>
+<% end %>

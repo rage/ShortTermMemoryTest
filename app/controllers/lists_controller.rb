@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_admin!, only:[:index,:show,:create,:destroy,:update,:new]
   skip_before_filter  :verify_authenticity_token
 
   before_filter :cors_preflight_check

@@ -1,5 +1,5 @@
 class TestlogsController < ApplicationController
-  before_action :set_testlog, only: [:show, :edit, :update, :destroy]
+  #before_action :set_testlog, only: [:show, :edit, :update, :destroy]
   skip_before_filter  :verify_authenticity_token
 
   before_filter :cors_preflight_check
@@ -33,7 +33,6 @@ class TestlogsController < ApplicationController
   # POST /testlogs
   # POST /testlogs.json
   def create
-    #byebug
     params[:testlog].each do |key,entry|
       puts key
       @testlog = Testlog.find_or_create_by(entry)
@@ -75,12 +74,16 @@ class TestlogsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_testlog
-      @testlog = Testlog.find(params[:id])
-    end
+    #def set_testlog
+    #  @testlog = Testlog.find(params[:id])
+    #end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+
+=begin
     def testlog_params
       params.require(:testlog).permit(:testcase_id, :eventtype, :value, :timestamp)
     end
+=end
+
 end

@@ -8,7 +8,6 @@ describe 'Admin page' do
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
     expect(page).to have_content 'Sign in'
     expect(page).to have_content 'Forgot your password?'
-    #save_and_open_page
   end
 
   it 'can be logged in to' do
@@ -18,7 +17,6 @@ describe 'Admin page' do
     click_button('Sign in')
     expect(page).to have_content 'Site Administration'
     expect(page).to have_content 'Signed in successfully.'
-    #save_and_open_page
   end
 
 =begin
