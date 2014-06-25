@@ -33,4 +33,29 @@ describe 'Admin page' do
   end
 =end
 
+  it 'import button in Lists view redirects to list import page' do
+    visit rails_admin_path
+    fill_in('admin_email',with:'hello@world.com')
+    fill_in('admin_password',with:'Tsoha123')
+    click_button('Sign in')
+    expect(page).to have_content 'Lists'
+    first(:link, 'Lists').click
+    expect(page).to have_content 'List of Lists'
+    click_link('Import')
+    expect(page).to have_content 'New list'
+    expect(page).to have_content 'Harjoituslista'
+    click_link('Short Term Memory Test Admin')
+    expect(page).to have_content 'Site Administration'
+    first(:link, 'Import').click
+    expect(page).to have_content 'New list'
+    expect(page).to have_content 'Harjoituslista'
+    click_link('Short Term Memory Test Admin')
+    expect(page).to have_content 'Site Administration'
+  end
+
+
+
+
+
+
 end
