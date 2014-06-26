@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
 
   has_many :testcases
   has_many :testlogs, :through => :testcases
+  has_many :results, :through => :testcases
 end

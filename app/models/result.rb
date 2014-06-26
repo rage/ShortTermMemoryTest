@@ -1,6 +1,7 @@
 class Result < ActiveRecord::Base
   belongs_to :testcase
   has_one :user, through: :testcase
+  has_one :list, through: :testcase
 
   validates :testcase_id, presence: true
   validates :keypressed, presence: true
