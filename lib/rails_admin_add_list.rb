@@ -20,13 +20,13 @@ module RailsAdmin
           false
         end
 
-=begin
+
         register_instance_option :controller do
           proc do
             redirect_to main_app.new_list_path
           end
         end
-=end
+
 
 
         register_instance_option :link_icon do
