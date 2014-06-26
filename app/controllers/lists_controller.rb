@@ -6,7 +6,6 @@ class ListsController < ApplicationController
   before_filter :cors_preflight_check
   after_filter :cors_set_access_control_headers
 
-
   # GET /lists
   # GET /lists.json
   def index
@@ -22,10 +21,6 @@ class ListsController < ApplicationController
   def new
     @list = List.new
   end
-
-  # GET /lists/1/edit
-  #def edit
-  #end
 
   #POST /nextList
   def getnextlist
