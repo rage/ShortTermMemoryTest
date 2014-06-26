@@ -80,10 +80,10 @@ class TestlogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
 
-=begin
+
     def testlog_params
       params.require(:testlog).permit(:testcase_id, :eventtype, :value, :timestamp)
     end
-=end
+
 
 end

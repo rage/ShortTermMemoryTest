@@ -1,5 +1,5 @@
 class ResultsController < ApplicationController
-  before_action :set_result, only: [:show, :edit, :update, :destroy]
+  #before_action :set_result, only: [:show, :edit, :update, :destroy]
 
   skip_before_filter  :verify_authenticity_token
 
@@ -9,9 +9,11 @@ class ResultsController < ApplicationController
 
   # GET /results
   # GET /results.json
+=begin
   def index
     @results = Result.all
   end
+=end
 
   # GET /results/1
   # GET /results/1.json
@@ -19,9 +21,11 @@ class ResultsController < ApplicationController
   end
 
   # GET /results/new
+=begin
   def new
     @result = Result.new
   end
+=end
 
   # GET /results/1/edit
   def edit
@@ -73,12 +77,16 @@ class ResultsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+=begin
     def set_result
       @result = Result.find(params[:id])
     end
+=end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+=begin
     def result_params
       params.require(:result).permit(:testcase_id, :keypressed, :keypressindex, :last_series, :timestamp)
     end
+=end
 end

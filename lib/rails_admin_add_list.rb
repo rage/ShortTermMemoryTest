@@ -20,11 +20,13 @@ module RailsAdmin
           false
         end
 
+=begin
         register_instance_option :controller do
           proc do
             redirect_to main_app.new_list_path
           end
         end
+=end
 
 
         register_instance_option :link_icon do
@@ -116,8 +118,10 @@ module RailsAdmin
     end
   end
   # Never trust parameters from the scary internet, only allow the white list through.
+=begin
   def list_params
     params.permit(:filename, :training, :active)
   end
+=end
 
 end

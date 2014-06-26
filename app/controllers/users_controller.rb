@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  #before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_filter  :verify_authenticity_token
 
   before_filter :cors_preflight_check
@@ -7,9 +7,11 @@ class UsersController < ApplicationController
 
   # GET /users
   # GET /users.json
+=begin
   def index
     @users = User.all
   end
+=end
 
   # GET /users/1
   # GET /users/1.json
@@ -76,6 +78,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.json
+=begin
   def destroy
     @user.destroy
     respond_to do |format|
@@ -83,12 +86,15 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+=end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+=begin
     def set_user
       @user = User.find(params[:id])
     end
+=end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params

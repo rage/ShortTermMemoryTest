@@ -1,5 +1,5 @@
 class TestcasesController < ApplicationController
-  before_action :set_testcase, only: [:show, :edit, :update, :destroy]
+  #before_action :set_testcase, only: [:show, :edit, :update, :destroy]
   skip_before_filter  :verify_authenticity_token
 
   before_filter :cors_preflight_check
@@ -7,9 +7,11 @@ class TestcasesController < ApplicationController
 
   # GET /testcases
   # GET /testcases.json
+=begin
   def index
     @testcases = Testcase.all
   end
+=end
 
   # GET /testcases/1
   # GET /testcases/1.json
@@ -17,9 +19,11 @@ class TestcasesController < ApplicationController
   end
 
   # GET /testcases/new
+=begin
   def new
     @testcase = Testcase.new
   end
+=end
 
   # GET /testcases/1/edit
   def edit
@@ -40,6 +44,7 @@ class TestcasesController < ApplicationController
 
   # POST /testcases
   # POST /testcases.json
+=begin
   def create
     @testcase = Testcase.new(testcase_params)
 
@@ -53,9 +58,11 @@ class TestcasesController < ApplicationController
       end
     end
   end
+=end
 
   # PATCH/PUT /testcases/1
   # PATCH/PUT /testcases/1.json
+=begin
   def update
     respond_to do |format|
       if @testcase.update(testcase_params)
@@ -67,9 +74,11 @@ class TestcasesController < ApplicationController
       end
     end
   end
+=end
 
   # DELETE /testcases/1
   # DELETE /testcases/1.json
+=begin
   def destroy
     @testcase.destroy
     respond_to do |format|
@@ -77,15 +86,20 @@ class TestcasesController < ApplicationController
       format.json { head :no_content }
     end
   end
+=end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_testcase
-      @testcase = Testcase.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+=begin
+  def set_testcase
+    @testcase = Testcase.find(params[:id])
+  end
+=end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def testcase_params
-      params.require(:testcase).permit(:user_id, :list_id, :training, :finished)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+=begin
+  def testcase_params
+    params.require(:testcase).permit(:user_id, :list_id, :training, :finished)
+  end
+=end
 end
