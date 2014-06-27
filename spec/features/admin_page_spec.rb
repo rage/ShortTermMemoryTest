@@ -19,20 +19,6 @@ describe 'Admin page' do
     expect(page).to have_content 'Signed in successfully.'
   end
 
-=begin
-  it 'forgot your password page works' do
-    host! "127.0.0.1"
-    visit rails_admin_path
-    click_link "Forgot your password?"
-    fill_in('admin_email',with:'hello@world.com')
-    save_and_open_page
-    click_button "Send me reset password instructions"
-
-    expect(page).to have_content 'You will receive an email with instructions on how to reset your password in a few minutes.'
-    #save_and_open_page
-  end
-=end
-
   it 'import button in Lists view redirects to list import page' do
     visit rails_admin_path
     fill_in('admin_email',with:'hello@world.com')
@@ -42,20 +28,16 @@ describe 'Admin page' do
     first(:link, 'Lists').click
     expect(page).to have_content 'List of Lists'
     click_link('Import')
+    expect(page).to have_content 'Listing lists'
+    click_link("New List")
     expect(page).to have_content 'New list'
     expect(page).to have_content 'Harjoituslista'
     click_link('Short Term Memory Test Admin')
     expect(page).to have_content 'Site Administration'
     first(:link, 'Import').click
-    expect(page).to have_content 'New list'
-    expect(page).to have_content 'Harjoituslista'
+    expect(page).to have_content 'Listing lists'
     click_link('Short Term Memory Test Admin')
     expect(page).to have_content 'Site Administration'
   end
-
-
-
-
-
 
 end
