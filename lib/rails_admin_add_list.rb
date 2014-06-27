@@ -23,7 +23,7 @@ module RailsAdmin
 
         register_instance_option :controller do
           proc do
-            redirect_to main_app.new_list_path
+            redirect_to main_app.lists_path
           end
         end
 
