@@ -3,7 +3,8 @@ lists = List.all
 list = lists.find_by filename:"lista_esimerkkikorjattu.csv"
 if !list
   List.create([
-    {filename: "lista_esimerkkikorjattu.csv", training: false, active: true}
+    {filename: "lista_esimerkkikorjattu.csv", training: false, active: true},
+    {filename: "training.csv", training: true, active: true}
   ])
   Number.create([
     {numberset_id: 1, position: 1, text: 5},
@@ -54,7 +55,18 @@ if !list
     {numberset_id: 11, position: 3, text: 7},
     {numberset_id: 11, position: 4, text: 9},
     {numberset_id: 12, position: 1, text: 4},
-    {numberset_id: 12, position: 2, text: 6}
+    {numberset_id: 12, position: 2, text: 6},
+    {numberset_id: 13, position: 1, text: 0},
+    {numberset_id: 13, position: 2, text: 1},
+    {numberset_id: 13, position: 3, text: 2},
+    {numberset_id: 13, position: 4, text: 3},
+    {numberset_id: 14, position: 1, text: 4},
+    {numberset_id: 14, position: 2, text: 5},
+    {numberset_id: 14, position: 3, text: 6},
+    {numberset_id: 15, position: 1, text: 7},
+    {numberset_id: 15, position: 2, text: 8},
+    {numberset_id: 15, position: 3, text: 9},
+    {numberset_id: 15, position: 4, text: 0}
   ])
   Numberset.create([
     {position: 1, list_id: 1, length: 4, order: "backwards"},
@@ -68,9 +80,9 @@ if !list
     {position: 9, list_id: 1, length: 5, order: "backwards"},
     {position: 10, list_id: 1, length: 7, order: "upwards"},
     {position: 11, list_id: 1, length: 4, order: "upwards"},
-    {position: 12, list_id: 1, length: 2, order: "backwards"}
+    {position: 12, list_id: 1, length: 2, order: "backwards"},
+    {position: 13, list_id: 2, length: 4, order: "backwards"},
+    {position: 14, list_id: 2, length: 3, order: "upwards"},
+    {position: 15, list_id: 2, length: 4, order: "backwards"}
   ])
 end
-User.create([
-  {username: "Olen", sex: "f", yearOfBirth: 1999, handedness: "l", education: "Peruskoulu"}
-])
